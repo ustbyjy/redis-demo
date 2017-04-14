@@ -1,5 +1,6 @@
 package com.yan.redis.test;
 
+import com.yan.redis.common.Constants;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Transaction;
 
@@ -9,9 +10,9 @@ import java.util.List;
  * 开启两个线程，一个线程watch k4，并开启事务set k4，另一个线程也set k4.
  * 注意：要保证前一个线程先watch k4，并且第二个线程先于第一个完成k4的set操作.
  */
-public class TestWatch {
-    public static final Jedis jedis1 = new Jedis("192.168.92.128", 6379);
-    public static final Jedis jedis2 = new Jedis("192.168.92.128", 6379);
+public class WatchTest {
+    public static final Jedis jedis1 = new Jedis(Constants.HOST_IP, 6379);
+    public static final Jedis jedis2 = new Jedis(Constants.HOST_IP, 6379);
 
     public static void main(String[] args) {
 //        testWatch();

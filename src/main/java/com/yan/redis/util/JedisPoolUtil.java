@@ -1,5 +1,6 @@
 package com.yan.redis.util;
 
+import com.yan.redis.common.Constants;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -15,7 +16,7 @@ public class JedisPoolUtil {
     }
 
     public static JedisPool getJedisPoolInstance() {
-        if (null == jedisPool) {
+        if (jedisPool == null) {
             synchronized (JedisPoolUtil.class) {
                 if (null == jedisPool) {
                     JedisPoolConfig poolConfig = new JedisPoolConfig();
@@ -23,7 +24,7 @@ public class JedisPoolUtil {
                     poolConfig.setMaxWaitMillis(100);
                     poolConfig.setMaxTotal(1000);
                     poolConfig.setTestOnBorrow(true);
-                    jedisPool = new JedisPool(poolConfig, "127.0.0.1", 6379);
+                    jedisPool = new JedisPool(poolConfig, Constants.HOST_IP, 6379);
                 }
             }
         }
@@ -31,8 +32,8 @@ public class JedisPoolUtil {
     }
 
     public static void release(JedisPool jedisPool, Jedis jedis) {
-        if (null != jedis) {
-            jedisPool.returnResourceObject(jedis);
+        if (jedis != null) {
+            jedisPool.destroy();
         }
     }
 }

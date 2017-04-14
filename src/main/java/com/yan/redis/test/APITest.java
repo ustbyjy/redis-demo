@@ -1,5 +1,6 @@
 package com.yan.redis.test;
 
+import com.yan.redis.common.Constants;
 import redis.clients.jedis.Jedis;
 
 import java.util.Set;
@@ -7,9 +8,9 @@ import java.util.Set;
 /**
  * Created by Administrator on 2016/11/25.
  */
-public class TestAPI {
+public class APITest {
     public static void main(String[] args) {
-        Jedis jedis = new Jedis("192.168.92.128", 6379);
+        Jedis jedis = new Jedis(Constants.HOST_IP, 6379);
 
         System.out.println(jedis.ping());
 

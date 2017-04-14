@@ -7,7 +7,7 @@ import redis.clients.jedis.JedisPool;
 /**
  * Created by Administrator on 2016/11/25.
  */
-public class TestPool {
+public class PoolTest {
     public static void main(String[] args) {
         JedisPool jedisPool = JedisPoolUtil.getJedisPoolInstance();
         Jedis jedis = null;
