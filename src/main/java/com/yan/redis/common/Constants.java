@@ -8,5 +8,5 @@ package com.yan.redis.common;
  * Time: 9:46
  */
 public class Constants {
-    public static final String HOST_IP = "192.168.92.128";
+    public static final String HOST_IP = "10.236.40.159";
 }
