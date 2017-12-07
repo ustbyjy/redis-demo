@@ -1,6 +1,8 @@
 package com.yan.redis.test;
 
-import com.yan.redis.common.Constants;
+import com.yan.redis.util.JedisSentinelPoolUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 
 /**
@@ -11,10 +13,17 @@ import redis.clients.jedis.Jedis;
  * Time: 11:58
  */
 public class SentinelTest {
-    public static void main(String[] args) throws InterruptedException {
-        Jedis master = new Jedis(Constants.HOST_IP, 6379);
-        Jedis slaver0 = new Jedis(Constants.HOST_IP, 6380);
-        Jedis slaver1 = new Jedis(Constants.HOST_IP, 6381);
+    private static Logger logger = LoggerFactory.getLogger(SentinelTest.class);
 
+    public static void main(String[] args) {
+        Jedis jedis = null;
+        try {
+            jedis = JedisSentinelPoolUtil.getJedisPoolInstance().getResource();
+            System.out.println(jedis.incr("counter"));
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        } finally {
+            JedisSentinelPoolUtil.release(jedis);
+        }
     }
 }
