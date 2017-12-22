@@ -1,6 +1,8 @@
 package com.yan.redis.test;
 
 import com.yan.redis.common.Constants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Transaction;
 
@@ -11,12 +13,14 @@ import java.util.List;
  * 注意：要保证前一个线程先watch k4，并且第二个线程先于第一个完成k4的set操作.
  */
 public class WatchTest {
+    private static Logger logger = LoggerFactory.getLogger(WatchTest.class);
+
     public static final Jedis jedis1 = new Jedis(Constants.HOST_IP, 6379);
     public static final Jedis jedis2 = new Jedis(Constants.HOST_IP, 6379);
 
     public static void main(String[] args) {
-//        testWatch();
-        testUnwatch();
+        testWatch();
+//        testUnwatch();
     }
 
     private static void testWatch() {
@@ -24,13 +28,17 @@ public class WatchTest {
             public void run() {
                 try {
                     jedis1.watch("k4");
+                    logger.info(Thread.currentThread().getName() + " watch k4");
                     Transaction tx = jedis1.multi();
                     tx.set("k4", "v4");
                     Thread.sleep(5000);
                     List<Object> resultList = tx.exec();
+                    logger.info(Thread.currentThread().getName() + " set k4 v4");
                     for (Object obj : resultList) {
-                        System.out.println(obj);
+                        logger.info(Thread.currentThread().getName() + obj);
                     }
+                    String k4 = jedis1.get("k4");
+                    logger.info(Thread.currentThread().getName() + " get k4：" + k4);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -43,7 +51,8 @@ public class WatchTest {
                 try {
                     Thread.sleep(1000);
                     String result = jedis2.set("k4", "v44");
-                    System.out.println(result);
+                    logger.info(Thread.currentThread().getName() + " set k4 v44");
+                    logger.info(Thread.currentThread().getName() + "：" + result);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
