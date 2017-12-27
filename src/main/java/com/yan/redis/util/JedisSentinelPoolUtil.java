@@ -33,9 +33,9 @@ public class JedisSentinelPoolUtil {
             synchronized (JedisSentinelPoolUtil.class) {
                 if (null == jedisSentinelPool) {
                     JedisPoolConfig poolConfig = new JedisPoolConfig();
-                    poolConfig.setMaxIdle(8);
+                    poolConfig.setMaxIdle(200);
                     poolConfig.setMaxWaitMillis(1000);
-                    poolConfig.setMaxTotal(8);
+                    poolConfig.setMaxTotal(300);
                     poolConfig.setTestOnBorrow(true);
                     Set<String> sentinels = new HashSet<String>();
                     sentinels.add("10.236.40.159:26379");
