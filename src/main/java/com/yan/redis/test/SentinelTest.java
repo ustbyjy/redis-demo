@@ -26,6 +26,7 @@ public class SentinelTest {
             jedis = JedisSentinelPoolUtil.getJedisPoolInstance().getResource();
             logger.info(jedis.incr("counter").toString());
 
+            // 只有sentinel才能执行sentinel相关命令
             sentinel = new Jedis(Constants.HOST_IP, 26379);
             List<Map<String, String>> masters = sentinel.sentinelMasters();
             for (Map<String, String> master : masters) {
