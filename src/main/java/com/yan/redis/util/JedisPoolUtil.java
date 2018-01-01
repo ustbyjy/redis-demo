@@ -35,7 +35,7 @@ public class JedisPoolUtil {
                     poolConfig.setMaxWaitMillis(1000);
                     poolConfig.setMaxTotal(8);
                     poolConfig.setTestOnBorrow(true);
-                    jedisPool = new JedisPool(poolConfig, Constants.HOST_IP, 6379);
+                    jedisPool = new JedisPool(poolConfig, PropertiesUtil.props.getProperty("redis.host"), 6379);
                 }
             }
         }
