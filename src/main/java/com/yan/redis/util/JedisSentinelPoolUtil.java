@@ -38,7 +38,9 @@ public class JedisSentinelPoolUtil {
                     poolConfig.setMaxTotal(300);
                     poolConfig.setTestOnBorrow(true);
                     Set<String> sentinels = new HashSet<String>();
-                    sentinels.add("10.236.40.159:26379");
+                    sentinels.add(PropertiesUtil.props.getProperty("redis.sentinel.1"));
+                    sentinels.add(PropertiesUtil.props.getProperty("redis.sentinel.2"));
+                    sentinels.add(PropertiesUtil.props.getProperty("redis.sentinel.3"));
                     jedisSentinelPool = new JedisSentinelPool("mymaster", sentinels, poolConfig);
                 }
             }
