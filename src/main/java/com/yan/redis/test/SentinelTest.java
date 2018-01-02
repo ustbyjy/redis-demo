@@ -23,7 +23,7 @@ public class SentinelTest {
         Jedis jedis = null;
         Jedis sentinel = null;
         try {
-            jedis = JedisSentinelPoolUtil.getJedisPoolInstance().getResource();
+            jedis = JedisSentinelPoolUtil.getWriteResource();
             logger.info(jedis.incr("counter").toString());
 
             // 只有sentinel才能执行sentinel相关命令

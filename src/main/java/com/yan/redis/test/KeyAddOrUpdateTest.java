@@ -13,7 +13,7 @@ public class KeyAddOrUpdateTest {
     private static Logger logger = LoggerFactory.getLogger(KeyAddOrUpdateTest.class);
 
     public static void main(String[] args) {
-        Jedis jedis = JedisSentinelPoolUtil.getJedisPoolInstance().getResource();
+        Jedis jedis = JedisSentinelPoolUtil.getWriteResource();
         // add
         Long addResult = jedis.setnx("kkk", "vvv");
         if (addResult == 1) {

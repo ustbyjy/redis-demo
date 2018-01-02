@@ -16,14 +16,14 @@ import java.util.Map;
  * Date: 2017/4/14
  * Time: 11:58
  */
-public class FailOverTest {
-    private static Logger logger = LoggerFactory.getLogger(FailOverTest.class);
+public class FailoverTest {
+    private static Logger logger = LoggerFactory.getLogger(FailoverTest.class);
 
     public static void main(String[] args) {
         Jedis jedis = null;
         Jedis sentinel = null;
         try {
-            jedis = JedisSentinelPoolUtil.getJedisPoolInstance().getResource();
+            jedis = JedisSentinelPoolUtil.getWriteResource();
 
             // 查看master
             sentinel = new Jedis(Constants.HOST_IP, 26379);
@@ -49,7 +49,7 @@ public class FailOverTest {
             } catch (Exception e) {
                 logger.error("不能使用旧master", e);
             }
-            jedis = JedisSentinelPoolUtil.getJedisPoolInstance().getResource();
+            jedis = JedisSentinelPoolUtil.getWriteResource();
             logger.info(jedis.incr("counter").toString());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

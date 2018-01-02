@@ -14,7 +14,7 @@ public class SlowLogTest {
     private static Logger logger = LoggerFactory.getLogger(SlowLogTest.class);
 
     public static void main(String[] args) {
-        Jedis jedis = JedisSentinelPoolUtil.getJedisPoolInstance().getResource();
+        Jedis jedis = JedisSentinelPoolUtil.getWriteResource();
         List<Slowlog> slowLogList = jedis.slowlogGet();
         for (Slowlog slowLog : slowLogList) {
             logger.info("id={}，timeStamp={}，executionTime={}，args={}", slowLog.getId(), new Date(slowLog.getTimeStamp() * 1000), slowLog.getExecutionTime(), slowLog.getArgs().toString());

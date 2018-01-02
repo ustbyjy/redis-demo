@@ -12,7 +12,7 @@ public class DistributedIdGeneratorTest {
         for (int i = 0; i < 50; i++) {
             new Thread(new Runnable() {
                 public void run() {
-                    Jedis jedis = JedisSentinelPoolUtil.getJedisPoolInstance().getResource();
+                    Jedis jedis = JedisSentinelPoolUtil.getWriteResource();
                     Long id = jedis.incr("user:id:generator");
                     logger.info(Thread.currentThread().getName() + "：" + id);
                 }
