@@ -71,6 +71,8 @@ public class APITest {
             jedis.rpush("mylist", "3");
             List<String> list = jedis.lrange("mylist", 0, -1);
             System.out.println(Arrays.toString(list.toArray()));
+            List<String> myList1 = jedis.brpop("mystlist1", String.valueOf(2));
+            System.out.println(Arrays.toString(myList1.toArray()));
             // set
             jedis.sadd("myset", "a");
             jedis.sadd("myset", "b");
