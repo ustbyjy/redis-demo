@@ -13,7 +13,7 @@ public class BRPOPTest {
     private static String key = "lr";
 
     public static void main(String[] args) throws InterruptedException {
-        Jedis jedis = new Jedis("10.236.40.159", 6379);
+        Jedis jedis = new Jedis("10.236.45.120", 6379);
         logger.info("开始时添加队列");
         for (int i = 0; i < 10; i++) {
             jedis.lpush(key, "" + i);
@@ -43,7 +43,7 @@ public class BRPOPTest {
         public volatile boolean flag = true;
 
         public void run() {
-            jedis = new Jedis("10.236.40.159", 6379);
+            jedis = new Jedis("10.236.45.120", 6379);
             while (flag) {
                 List<String> resultList = jedis.brpop(key, "0");
                 logger.info(resultList.get(0) + ": " + resultList.get(1));

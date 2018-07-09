@@ -14,7 +14,7 @@ public class PipelineTest {
     }
 
     private static void multiDelTest() {
-        Jedis jedis = new Jedis("10.236.40.159", 6379);
+        Jedis jedis = new Jedis("10.236.45.120", 6379);
         Pipeline pipeline = jedis.pipelined();
         List<String> keyList = Arrays.asList("k1", "k2", "k3");
         for (String key : keyList) {
@@ -25,7 +25,7 @@ public class PipelineTest {
     }
 
     private static void multiOperateTest() {
-        Jedis jedis = new Jedis("10.236.40.159", 6379);
+        Jedis jedis = new Jedis("10.236.45.120", 6379);
         Pipeline pipeline = jedis.pipelined();
         pipeline.set("hello", "world");
         pipeline.incr("counter");

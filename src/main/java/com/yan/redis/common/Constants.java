@@ -9,5 +9,5 @@ package com.yan.redis.common;
  */
 public class Constants {
     public static final String HOST_IP = "192.168.6.129";
-//    public static final String HOST_IP = "10.236.40.159";
+//    public static final String HOST_IP = "10.236.45.120";
 }

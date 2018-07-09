@@ -24,7 +24,7 @@ public class APITest {
     }
 
     private static void simpleTest() {
-        Jedis jedis = new Jedis("10.236.40.159", 6379);
+        Jedis jedis = new Jedis("10.236.45.120", 6379);
 
         System.out.println(jedis.ping());
 
@@ -41,7 +41,7 @@ public class APITest {
         Jedis jedis = null;
         try {
             // 端口设成6380测试连接不通抛异常
-            jedis = new Jedis("10.236.40.159", 6380);
+            jedis = new Jedis("10.236.45.120", 6380);
             jedis.get("hello");
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -55,7 +55,7 @@ public class APITest {
     private static void dataTypesTest() {
         Jedis jedis = null;
         try {
-            jedis = new Jedis("10.236.40.159", 6379);
+            jedis = new Jedis("10.236.45.120", 6379);
             // string
             jedis.set("hello", "world");
             System.out.println(jedis.get("hello"));
@@ -65,14 +65,20 @@ public class APITest {
             jedis.hset("myhash", "f2", "v2");
             Map<String, String> map = jedis.hgetAll("myhash");
             System.out.println(map);
-            // list
+            // list-rpop
+            jedis.lpush("demolist", "1");
+            jedis.lpush("demolist", "2");
+            jedis.lpush("demolist", "3");
+            String listStr = jedis.rpop("demolist");
+            System.out.println(listStr);
+            // list-brpop
             jedis.rpush("mylist", "1");
             jedis.rpush("mylist", "2");
             jedis.rpush("mylist", "3");
             List<String> list = jedis.lrange("mylist", 0, -1);
             System.out.println(Arrays.toString(list.toArray()));
-            List<String> myList1 = jedis.brpop("mystlist1", String.valueOf(2));
-            System.out.println(Arrays.toString(myList1.toArray()));
+            List<String> myList = jedis.brpop("mylist", String.valueOf(2));
+            System.out.println(Arrays.toString(myList.toArray()));
             // set
             jedis.sadd("myset", "a");
             jedis.sadd("myset", "b");
