@@ -42,6 +42,15 @@ public class JedisPoolUtil {
     }
 
     /**
+     * 获取资源
+     *
+     * @return Jedis
+     */
+    public static Jedis getResource() {
+        return jedisPool.getResource();
+    }
+
+    /**
      * Jedis在关闭连接时首先判断是否使用了连接池，若使用了连接池则归还，若未使用直接关闭，具体查看源代码
      *
      * @param jedis
@@ -51,4 +60,5 @@ public class JedisPoolUtil {
             jedis.close();
         }
     }
+
 }
